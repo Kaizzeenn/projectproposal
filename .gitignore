@@ -1,0 +1,12 @@
+# Personal media and offline bundles should never enter the public prototype repo
+*.MOV
+*.HEIC
+*.mp4
+*.mp3
+*.wav
+OFFLINE_ALL_IN_ONE.html
+*Private*.html
+*Private*.zip
+.env
+.DS_Store
+Thumbs.db

@@ -1,31 +1,34 @@
-# Project BDAY — Contributor Prototype 🌻
+# Project BDAY — GitHub Pages preview
 
-A one-file interactive **demonstration** of Marjie's November 19 birthday website, intended to show contributors what their submissions will look like.
+This is the **public-safe preview** of Marjie’s birthday scrapbook, updated November 17, 2026.
+It is a static website built from HTML, CSS, and vanilla JavaScript.
 
-## Run locally
+## What to upload
 
-Open `index.html` in a web browser. Enter `1119` (November 19) to unlock. Use the arrows on each greeting card, click **Watch video** to see its demonstration slot, click the example gift box, and tap all three cake candles to reach the ending.
+Upload **the contents of this folder** into the root of a GitHub repository. Do **not** upload the ZIP file itself as a single repository file. The `index.html` file must be at the repository root.
 
-Use the **Your part in this** button at the top to see submission requirements.
+## Publish with GitHub Pages
 
-## Upload to GitHub Pages
+1. Create or open the repository and select **Add file → Upload files**.
+2. Drag everything in this folder (including the `.nojekyll` file), preserving filenames.
+3. Commit the changes.
+4. Go to **Settings → Pages** and deploy from your default branch's `/ (root)` folder.
+5. Wait for GitHub Pages to publish and open the resulting website URL.
 
-1. Create a repository (public if you intend to use free public GitHub Pages).
-2. Upload `index.html` to the repository root.
-3. In **Settings → Pages**, select **Deploy from a branch** and choose the branch containing `index.html` (typically `main`, `/root`).
-4. Wait for GitHub to provide your site URL, then share **only with intended contributors**.
+For an existing GitHub Pages repository, replace its older preview source with these files, rather than leaving conflicting `index.html` copies.
 
-**Privacy:** A GitHub Pages site is publicly accessible, and `1119` is a visual interaction — **not real access control**. Don't upload your personal finale, private messages, real friends' recordings/photos, the shared Drive URL, or confidential gifts to a public repository. The entire source can be viewed by anyone with the page URL. A private repo does not automatically make Pages private. Use this preview to explain the layout; keep the full birthday version privately and unpublished until you're ready.
+## Contents
 
-## What's simulated?
+- `index.html` — website page and sections
+- `styles.css` — visual design, sticky notes, responsiveness
+- `content.js` — mock preview profiles and empty media references
+- `app.js` — password keypad, carousels, Marjie Files, photos, cake, and finishing sequence
+- `preview-notes.js` — **clearly marked sample** sticky notes, not actual friends' comments
+- `.nojekyll` — static GitHub Pages configuration
+- `.gitignore` — prevents accidental upload of local files/media
 
-- All 12 people are listed to demonstrate how their sections will work; written text is **demo content**, not their submissions.
-- Photos and video slots intentionally use placeholders.
-- The example gift is **not assigned to any person**; gifts are optional.
-- The final page intentionally stops at the end of the demo and does not include any private ending, not even hidden in the source.
+## Important privacy boundary
 
-## Gathering submissions
+This **public preview uses demo content only**. Do not copy source files or media from the private working project into a public repository without reviewing the content and obtaining permission. A passcode displayed by a static website is **not** secure access control; people can inspect or download public repository contents.
 
-**Inner Circle:** Freyja, Paolo, Chesca, Glesnan, Precious, Chloe, Yeisha, Liam — display photo, birthday video, written birthday message, one appreciation note, and optional gift details. **Additional greetings:** Shawn, Maggie, Trish, Michiko — display photo, video greeting, short written birthday wish. Preferred deadline **Nov 1**, final deadline **Nov 7**.
-
-This repository is a **prototype only**. The private final site should be assembled separately from this publicly deployed version.
+If you want to deploy the fully personalized website, keep it in a controlled private environment and obtain permission to publish each contributor's media before exposing it on an open website.
