@@ -282,3 +282,15 @@ body.ap-editor-open{overflow:hidden!important}
 @media(max-width:790px){.letter-surprise{grid-column:1}.letter-media{grid-column:1}.letter-paper-personal{transform:none}}
 @media(max-width:530px){.letter-surprise{padding:0}.letter-envelope-intro p{font-size:.94rem}.envelope-shell{width:100%}.envelope-seal{width:55px;height:55px}.letter-paper-personal{padding:26px 21px}.letter-paper-personal #aaronLetter{line-height:1.76}}
 @media(prefers-reduced-motion:reduce){.envelope-flap,.envelope-seal,.envelope-inner-sheet{transition:none!important}.letter-reveal{animation:none!important}}
+
+/* November 18: cinematic video first, sealed letter directly below. */
+.letter-wrap{display:flex;flex-direction:column;align-items:center;gap:34px;max-width:1060px;margin-inline:auto}
+.letter-lead{width:100%;max-width:860px;text-align:center}
+.letter-lead h2{max-width:820px;margin:14px auto 16px;font-size:clamp(3.2rem,5.8vw,5.8rem);line-height:1.08;text-wrap:balance}
+.letter-lead p{max-width:640px;margin-inline:auto}
+.letter-media{width:100%;max-width:980px;aspect-ratio:16/9;min-height:0;grid-column:auto;border-radius:16px;box-shadow:0 24px 48px #4c31301b}
+.letter-surprise{width:100%;max-width:820px;grid-column:auto;align-self:center;padding:20px 0 0}
+.letter-reveal{width:100%}
+.letter-paper-personal{max-width:none}
+@media(max-width:790px){.letter-wrap{gap:25px}.letter-media{width:100%;aspect-ratio:16/9;min-height:0}.letter-surprise{grid-column:auto;padding-top:12px}}
+@media(max-width:530px){.letter-wrap{gap:22px}.letter-lead h2{font-size:clamp(2.6rem,10vw,3.8rem)}.letter-media{min-height:0;aspect-ratio:4/3;border-radius:12px}.letter-surprise{padding-top:10px}}
