@@ -61,8 +61,8 @@ const BDAY = {
   "innerCircle": [
     {
       "name": "Freyja + Paolo",
-      "photo": "assets/photos/freyja_paolo_display.png",
-      "video": "assets/videos/paolo_freyja_shared.mp4",
+      "photo": "freyja_paolo_display.png",
+      "video": "paolo_freyja_shared.mp4",
       "videoInfo": "One video from Freyja and Paolo"
     },
     {
@@ -85,28 +85,28 @@ const BDAY = {
     },
     {
       "name": "Yeisha",
-      "photo": "assets/photos/yeisha_video_still.jpg",
-      "video": "assets/videos/yeisha_greeting.mp4",
+      "photo": "yeisha_video_still.jpg",
+      "video": "yeisha_greeting.mp4",
       "videoInfo": "A birthday greeting from Yeisha"
     },
     {
       "name": "Liam",
-      "photo": "assets/photos/liam.jpg",
-      "video": "assets/videos/liam_greeting.mp4",
+      "photo": "liam.jpg",
+      "video": "liam_greeting.mp4",
       "videoInfo": "A greeting from Liam"
     }
   ],
   "birthdayMessages": [
     {
       "name": "Shawn + Victor",
-      "photo": "assets/photos/shawn_victor.png",
+      "photo": "shawn_victor.png",
       "video": "",
       "videoInfo": ""
     },
     {
       "name": "Maggie",
-      "photo": "assets/photos/maggie.jpg",
-      "video": "assets/videos/maggie_greeting.mp4",
+      "photo": "maggie.jpg",
+      "video": "maggie_greeting.mp4",
       "videoInfo": "A birthday video from Maggie"
     },
     {

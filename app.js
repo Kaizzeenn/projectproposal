@@ -3,7 +3,7 @@
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
   const escapeHTML = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const safePath = (path) => typeof path === 'string' && /^assets\/[a-z0-9_.\-/ ]+$/i.test(path) && !path.includes('..') ? path : '';
+  const safePath = (path) => typeof path === 'string' && /^(?:assets\/(?:photos|videos)\/)?[a-z0-9][a-z0-9_. -]*\.(?:png|jpe?g|webp|mp4)$/i.test(path) && !path.includes('..') ? path : '';
   const isFriends = !!window.BDAY_FRIENDS_ONLY;
   const people = BDAY.innerCircle;
   const others = BDAY.birthdayMessages;
