@@ -225,8 +225,26 @@
 <section class="letter-section section-padding">
 <div class="site-container letter-wrap">
 <div class="letter-lead reveal"><span class="eyebrow">A MESSAGE JUST FROM ME</span><h2>I've been wanting<br/>to tell you <em>this.</em></h2><p>A little video, and some words you can come back to anytime.</p></div>
+
+<div class="letter-surprise" id="letterSurprise">
+  <div class="letter-envelope-intro"><span class="eyebrow">A LETTER SEALED JUST FOR YOU</span><p>There’s one more thing from your bebiilovess. ♡</p></div>
+  <button class="envelope-button" id="openLetter" type="button" aria-expanded="false" aria-controls="letterReveal" aria-label="Open the sealed letter for bebii">
+    <span class="envelope-shell" aria-hidden="true">
+      <span class="envelope-inner-sheet"></span>
+      <span class="envelope-pocket"></span>
+      <span class="envelope-flap"></span>
+      <span class="envelope-seal">♡</span>
+    </span>
+    <span class="envelope-hint">Tap the heart seal to open your letter ♡</span>
+  </button>
+  <div class="letter-reveal" id="letterReveal" hidden>
+    <article class="letter-paper letter-paper-personal">
+      <div class="paper-top">A LETTER JUST FOR YOU <span>♡</span></div>
+      <p id="aaronLetter"></p>
+    </article>
+  </div>
+</div>
 <div class="letter-media reveal" id="aaronVideoContainer"><button class="letter-play" id="playAaronVideo" type="button"><span>▶</span> Play my message</button><span class="media-placeholder">YOUR VIDEO WILL GO HERE</span></div>
-<article class="letter-paper reveal"><div class="paper-top">A NOTE FOR YOU <span>♡</span></div><h3>dear bebii,</h3><p id="aaronLetter"></p><div class="letter-signature">love,<br/><em>your bebiilovess ♡</em></div></article>
 </div>
 </section>
 <section class="verse-section section-padding"><div class="site-container"><div class="section-heading reveal"><div><span class="eyebrow">A FEW WORDS TO KEEP CLOSE</span><h2>For the beautiful things<br/>still <em>ahead.</em></h2><p>A few verses chosen for love, courage, and everything you've overcome.</p></div></div><div class="verse-grid" id="verseGrid"></div></div></section>
