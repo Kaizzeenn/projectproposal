@@ -237,6 +237,18 @@
       toast('Your digital gift is ready. ♡');
     });
     $('#aaronLetter').textContent=BDAY.personal.letter;
+    $('#openLetter')?.addEventListener('click',()=>{
+      const envelope=$('#letterSurprise'), button=$('#openLetter'), letterPage=$('#letterReveal');
+      if(!envelope || !button || !letterPage || !letterPage.hidden)return;
+      envelope.classList.add('opened');
+      button.setAttribute('aria-expanded','true');
+      button.disabled=true;
+      const reduceMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+      setTimeout(()=>{
+        letterPage.hidden=false;
+        letterPage.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'});
+      },reduceMotion?0:680);
+    });
     const verseGrid=$('#verseGrid');
     verseGrid.innerHTML=BDAY.personal.verses.map(x=>`<article class="verse-card reveal"><span class="tiny-label">${escapeHTML(x.theme)}</span><h3>${escapeHTML(x.reference)}</h3><p>${escapeHTML(x.note)}</p><div class="verse-ref">A VERSE TO REMEMBER ♡</div></article>`).join('');
     $('#playAaronVideo')?.addEventListener('click',()=>{
