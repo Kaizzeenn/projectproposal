@@ -4,6 +4,7 @@
   const $$ = (selector) => [...document.querySelectorAll(selector)];
   const escapeHTML = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const safePath = (path) => typeof path === 'string' && /^assets\/[a-z0-9_.\-/ ]+$/i.test(path) && !path.includes('..') ? path : '';
+  const isFriends = !!window.BDAY_FRIENDS_ONLY;
   const people = BDAY.innerCircle;
   const others = BDAY.birthdayMessages;
   let passcode = '';
@@ -202,8 +203,43 @@
     $('#fakeEnd').hidden=false;goTo('fakeEnd');confetti(90);
   });
 
-  // Public preview ends here.
-  $('#endButton')?.addEventListener('click',()=>window.location.reload());
+  if(isFriends){
+    $('#endButton')?.addEventListener('click',()=>toast('And that is the end of the friends’ preview. Thank you for being part of it!'));
+  }else{
+    $('#endButton')?.addEventListener('click',()=>{
+      $('#personalReveal').hidden=false;
+      $('#revealCurtain').hidden=false;
+      const headline=$('#revealHeadline'), subtitle=$('#revealSubtitle'),btn=$('#openLastMessage');
+      headline.textContent='Wait...';subtitle.textContent='I think we forgot someone.';
+      document.body.style.overflow='hidden';
+      setTimeout(()=>{headline.textContent='One more message.';subtitle.textContent='This one was saved for last.';btn.hidden=false;},1600);
+    });
+    $('#openLastMessage')?.addEventListener('click',()=>{
+      $('#revealCurtain').hidden=true;$('#personalContent').hidden=false;
+      document.body.style.overflow='';
+      goTo('personalReveal');
+    });
+    $('#bouquetBloom')?.addEventListener('click',()=>{
+      $('#bouquetArt').classList.remove('bloomed');void $('#bouquetArt').offsetWidth;$('#bouquetArt').classList.add('bloomed');
+      $('#bloomNote').textContent='Your favorite flowers, just for you. ♡';
+    });
+    $('#openDigitalGift')?.addEventListener('click',()=>{
+      const reveal=$('#digitalGiftReveal');
+      if(!reveal)return;
+      reveal.hidden=false;
+      $('#openDigitalGift').disabled=true;
+      $('#openDigitalGift').innerHTML='Opened just for you <span>♡</span>';
+      toast('Your digital gift is ready. ♡');
+    });
+    $('#aaronLetter').textContent=BDAY.personal.letter;
+    const verseGrid=$('#verseGrid');
+    verseGrid.innerHTML=BDAY.personal.verses.map(x=>`<article class="verse-card reveal"><span class="tiny-label">${escapeHTML(x.theme)}</span><h3>${escapeHTML(x.reference)}</h3><p>${escapeHTML(x.note)}</p><div class="verse-ref">A VERSE TO REMEMBER ♡</div></article>`).join('');
+    $('#playAaronVideo')?.addEventListener('click',()=>{
+      const path=safePath(BDAY.personal.video);
+      openModal({title:'From your bebiilovess',eyebrow:'THE LAST BIRTHDAY GREETING',body:path?`<video src="${escapeHTML(path)}" controls playsinline preload="metadata"></video>`:`<div class="video-preview"><div><div class="demo-circle">▶</div><strong>For my bebii ♡</strong><span>Your personal birthday video will go here.</span></div></div>`,caption:path?'Your special message ♡':'Preview only — replace this slot with your video later.'});
+    });
+    $('#replayAll')?.addEventListener('click',()=>window.location.reload());
+  }
 
   function confetti(count){
     const host=$('#confetti');if(!host)return;
@@ -223,4 +259,7 @@
     },{threshold:.08,rootMargin:'0px 0px -25px 0px'});
     $$('.reveal,.note').forEach(el=>observer.observe(el));
   } else $$('.reveal,.note').forEach(el=>el.classList.add(el.classList.contains('note')?'shown':'visible'));
+  document.addEventListener('scroll',()=>{
+    if($('#personalContent')&&!$('#personalContent').hidden)$$('.verse-card.reveal').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight-80)el.classList.add('visible')});
+  },{passive:true});
 })();
