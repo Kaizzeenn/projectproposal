@@ -226,6 +226,11 @@
     $('#openDigitalGift')?.addEventListener('click',()=>{
       const reveal=$('#digitalGiftReveal');
       if(!reveal)return;
+      const giftArt=reveal.querySelector('.digital-gift-image');
+      if(giftArt && !giftArt.getAttribute('src')){
+        const giftPath=giftArt.getAttribute('data-gift-image');
+        if(giftPath)giftArt.setAttribute('src',giftPath);
+      }
       reveal.hidden=false;
       $('#openDigitalGift').disabled=true;
       $('#openDigitalGift').innerHTML='Opened just for you <span>♡</span>';
