@@ -252,3 +252,33 @@ body.ap-editor-open{overflow:hidden!important}
 .digital-gift-caption{margin:12px 4px 2px;text-align:center;font:italic 1rem/1.5 Georgia,serif;color:#7b5b66}
 @keyframes giftPop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:780px){.digital-gift-panel{margin-top:22px;padding:18px;border-radius:22px}.digital-gift-card{max-width:none}}
+
+/* A sealed envelope opens to Aaron's complete handwritten birthday letter. */
+.letter-surprise{grid-column:2;min-width:0;display:flex;flex-direction:column;align-items:center;gap:0;padding:6px 0 8px}
+.letter-envelope-intro{text-align:center;margin-bottom:17px}
+.letter-envelope-intro .eyebrow{color:#b66a79}
+.letter-envelope-intro p{font:italic 1rem/1.6 Georgia,serif;color:#93726e;margin:9px auto 0}
+.envelope-button{width:min(100%,420px);max-width:100%;display:flex;flex-direction:column;align-items:center;gap:14px;border:0;outline-offset:5px;background:transparent;padding:8px 0 12px;cursor:pointer;text-align:center;color:#8c5f68}
+.envelope-button:focus-visible{outline:3px solid #bc7681;border-radius:12px}
+.envelope-button:disabled{cursor:default;opacity:1}
+.envelope-shell{display:block;position:relative;width:min(100%,390px);aspect-ratio:1.54;background:#dfb9af;border:2px solid #d1a7a2;border-radius:9px;box-shadow:0 15px 32px #61434927,0 3px 0 #fff9f38c inset;perspective:900px;isolation:isolate}
+.envelope-inner-sheet{position:absolute;z-index:1;left:13%;right:13%;height:70%;top:14%;background:#fff9ed;border:1px solid #e0c9bd;box-shadow:0 1px 6px #4e3e3520;transition:transform .7s ease}
+.envelope-inner-sheet:after{content:'to my bebii ♡';font:italic clamp(1.15rem,2.8vw,1.55rem)/1.2 Georgia,serif;color:#a36773;position:absolute;top:31%;left:0;right:0;text-align:center}
+.envelope-pocket{position:absolute;z-index:2;inset:0;background:linear-gradient(145deg,#f7e4dc,#e9c6bb 65%,#ddb3ab);clip-path:polygon(0% 0%,50% 59%,100% 0%,100% 100%,0% 100%);border-radius:7px}
+.envelope-flap{position:absolute;z-index:3;inset:0;clip-path:polygon(0 0,100% 0,50% 61%);background:linear-gradient(180deg,#f4dcd4 0%,#e6bcb4 100%);transform-origin:top center;transition:transform .75s ease,opacity .7s ease;backface-visibility:hidden}
+.envelope-seal{position:absolute;z-index:4;left:50%;top:55%;transform:translate(-50%,-50%);display:grid;place-items:center;width:64px;height:64px;border:2px solid #e8b3bd;background:#b96b7b;color:#fff7f5;border-radius:50%;font:2.1rem Georgia,serif;box-shadow:0 3px 12px #71414e52;transition:transform .4s ease,opacity .35s ease}
+.envelope-button:hover:not(:disabled) .envelope-seal{transform:translate(-50%,-50%) scale(1.08)}
+.envelope-button:hover:not(:disabled) .envelope-shell{box-shadow:0 20px 37px #61434930}
+.envelope-hint{font:italic .95rem/1.4 Georgia,serif;color:#a17379}
+.letter-surprise.opened .envelope-flap{transform:rotateX(170deg);opacity:.22}
+.letter-surprise.opened .envelope-seal{transform:translate(-50%,-50%) scale(.45);opacity:0}
+.letter-surprise.opened .envelope-inner-sheet{transform:translateY(-36px)}
+.letter-surprise.opened .envelope-hint{opacity:.55}
+.letter-reveal[hidden]{display:none!important}
+.letter-reveal{width:100%;margin-top:30px;animation:letterUnfold .75s both;scroll-margin-top:96px}
+.letter-paper-personal{grid-column:auto;width:100%;max-width:740px;min-height:0;padding:clamp(25px,4vw,50px);transform:rotate(.5deg)}
+.letter-paper-personal #aaronLetter{white-space:pre-wrap;overflow-wrap:anywhere;margin:26px 0 2px;font:clamp(1rem,1.55vw,1.16rem)/1.85 Georgia,serif;color:#5f4e49}
+@keyframes letterUnfold{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:790px){.letter-surprise{grid-column:1}.letter-media{grid-column:1}.letter-paper-personal{transform:none}}
+@media(max-width:530px){.letter-surprise{padding:0}.letter-envelope-intro p{font-size:.94rem}.envelope-shell{width:100%}.envelope-seal{width:55px;height:55px}.letter-paper-personal{padding:26px 21px}.letter-paper-personal #aaronLetter{line-height:1.76}}
+@media(prefers-reduced-motion:reduce){.envelope-flap,.envelope-seal,.envelope-inner-sheet{transition:none!important}.letter-reveal{animation:none!important}}
