@@ -146,7 +146,7 @@ const BDAY = {
       "label": "Favorite memories"
     },
     {
-      "photo": "",
+      "photo": "marjie_group_days.png",
       "caption": "The group days",
       "label": "The group days"
     },
