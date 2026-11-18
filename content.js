@@ -126,7 +126,7 @@ const BDAY = {
   ],
   "memories": [
     {
-      "photo": "",
+      "photo": "marjie_little_adventures.png",
       "caption": "Little adventures",
       "label": "Little adventures"
     },
