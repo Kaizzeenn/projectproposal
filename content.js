@@ -151,7 +151,8 @@ const BDAY = {
       "label": "The group days"
     },
     {
-      "photo": "",
+      "photo": "marjie_moments_poster.jpg",
+      "video": "marjie_moments_video.mp4",
       "caption": "Marjie moments",
       "label": "Marjie moments"
     }
