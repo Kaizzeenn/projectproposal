@@ -382,3 +382,7 @@ body.ap-editor-open{overflow:hidden!important}
 .mf-art-fries .mf-fries-label{left:auto;right:7px;transform:rotate(6deg)}
 .mf-art-fries .mf-paw{z-index:5}
 @media(max-width:720px){.mf-art-fries .mf-chichi-photo{width:43%;left:7%}.mf-art-fries .mf-fries-img{width:57%}}
+
+/* Original photo in the birthday lock screen Polaroid. */
+.lock-polaroid-art .marjie-lock-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:center 43%;}
+.lock-polaroid-art .art-heart{z-index:2;text-shadow:0 1px 4px #fffaf4;}
