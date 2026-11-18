@@ -10,7 +10,7 @@ const BDAY = {
   "appreciationNotes": [
     {
       "name": "Freyja",
-      "quote": ""
+      "quote": "I love how marj is such a thoughtful and caring person. She always makes sure that everyone enjoys the moments we share together. I think it was fate that brought us together kasi may karamay na ako sa mga pagsubok ni AU HAHAHA and from being strangers and only hearing her name from my friends, she became someone I can have fun with."
     },
     {
       "name": "Paolo",
@@ -38,7 +38,7 @@ const BDAY = {
     },
     {
       "name": "Liam",
-      "quote": ""
+      "quote": "her unwavering kindess hehe"
     },
     {
       "name": "Shawn",
