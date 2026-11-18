@@ -30,7 +30,7 @@ const BDAY = {
     },
     {
       "name": "Precious",
-      "quote": ""
+      "quote": "one thing i luv about marj is how caring and thoughtful shaa when it comes to the people around herrr"
     },
     {
       "name": "Yeisha",
@@ -59,7 +59,7 @@ const BDAY = {
   ],
   "marjieFiles": {
     "universePhoto": "",
-    "smilesPhoto": "chichi.jpg",
+    "smilesPhoto": "",
     "lorePhoto": "",
     "loreStory": "Her friends notice how caring and genuine she is, how she makes even new people feel comfortable and included, and how her bubbly energy and creativity brighten the group. That's the Marjie Effect. ♡",
     "loreBy": "some people just feel like sunshine ♡",
