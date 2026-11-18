@@ -263,7 +263,9 @@
     verseGrid.innerHTML=BDAY.personal.verses.map(x=>`<article class="verse-card reveal"><span class="tiny-label">${escapeHTML(x.theme)}</span><h3>${escapeHTML(x.reference)}</h3><p>${escapeHTML(x.note)}</p><div class="verse-ref">A VERSE TO REMEMBER ♡</div></article>`).join('');
     $('#playAaronVideo')?.addEventListener('click',()=>{
       const path=safePath(BDAY.personal.video);
-      openModal({title:'From your bebiilovess',eyebrow:'THE LAST BIRTHDAY GREETING',body:path?`<video src="${escapeHTML(path)}" controls playsinline preload="metadata"></video>`:`<div class="video-preview"><div><div class="demo-circle">▶</div><strong>For my bebii ♡</strong><span>Your personal birthday video will go here.</span></div></div>`,caption:path?'Your special message ♡':'Preview only — replace this slot with your video later.'});
+      // Always load the newly normalized audio instead of a previously cached MP4.
+      const videoSrc = path === 'aaron_finale.mp4' ? `${path}?v=audio-normalized-20261119` : path;
+      openModal({title:'From your bebiilovess',eyebrow:'THE LAST BIRTHDAY GREETING',body:path?`<video src="${escapeHTML(videoSrc)}" controls playsinline preload="metadata"></video>`:`<div class="video-preview"><div><div class="demo-circle">▶</div><strong>For my bebii ♡</strong><span>Your personal birthday video will go here.</span></div></div>`,caption:path?'Your special message ♡':'Preview only — replace this slot with your video later.'});
     });
     $('#replayAll')?.addEventListener('click',()=>window.location.reload());
   }
