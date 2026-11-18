@@ -1,0 +1,42 @@
+name: Replace Shawn and Victor birthday greeting video
+on:
+  push:
+    paths:
+      - '.github/workflows/replace-shawn-victor-video.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  replace-video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download new submitted video
+        run: |
+          python3 -m pip install --quiet gdown==5.2.0
+          gdown --id "1XjwG-qx54lZIf_TKQ6Ov8FENrxUu0U4b" --output "/tmp/shawn_victor_new.mp4"
+          test -s /tmp/shawn_victor_new.mp4
+
+      - name: Compress new video for direct web playback
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/shawn_victor_new.mp4 \
+            -vf "scale=1280:-2" -c:v libx264 -preset veryfast -crf 24 \
+            -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart \
+            shawn_victor_greeting.mp4
+          test -s shawn_victor_greeting.mp4
+
+      - name: Replace existing GitHub Pages video
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add shawn_victor_greeting.mp4
+          if ! git diff --cached --quiet; then
+            git commit -m "Replace Shawn and Victor birthday video with new upload"
+            git push
+          fi
