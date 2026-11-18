@@ -1,52 +1,43 @@
-# Project BDAY — Full Birthday Website (GitHub Pages)
+# Project BDAY — Marjie's birthday website
 
-This is the **complete** November 18 master of Marjie's birthday website, including the **friends' videos and photos** and the **personal hidden finale** with the sunflower bouquet, special digital artwork reveal, Bible verse cards, and personal letter section.
+Live website: https://kaizzeenn.github.io/projectproposal/
 
-**IMPORTANT: Uploading to a PUBLIC GitHub repository publishes all files, including the personal artwork, videos, text, and the entire finale.** The `1119` code delays the surprise on screen but is **not security**: anyone can inspect the source or access media URLs. The `noindex` meta only asks search engines not to index this site; it does not make it private. Make sure friends are comfortable with public hosting of their media.
+**Edition:** November 19, 2026. Static GitHub Pages website (no build step).
 
-## Upload to GitHub Pages
+## Current progress
 
-1. Extract `Project_BDAY_GitHub_Full_Finale_Nov18.zip`.
-2. Go to your repository on GitHub. Delete/replace older website files as needed.
-3. Upload the **contents** of the extracted folder, not the outer folder itself. `index.html` must sit at the repository root next to `styles.css`, `app.js`, `content.js`, and `appreciation.js`.
-4. Preserve all directories and paths under `assets/photos/` and `assets/videos/`.
-5. Commit. Under **Settings → Pages → Build and deployment**, select **Deploy from a branch**, branch `main`, folder `/ (root)`, and Save.
-6. Visit the Pages link after deployment. Enter `1119`. Test the video cards, candles, **That’s everything?** button, sunflower animation, and the digital-art **Open your digital gift** button.
+- **Friend birthday videos:** 8 of 9 configured cards have a photo and local MP4. The remaining card is Michiko, whose photo and video are still blank.
+- **Appreciation messages:** 10 of 12 filled in `content.js`. Shawn and Michiko are blank.
+- **Gallery:** All 6 memory tiles have real photos or videos, including Favorite memories, Little adventures, Funny photos, Small moments, The group days and Marjie moments.
+- **Marjie Files:** Three working expandable files with Hello Kitty, Panda, Potato Corner, Chichi and The Marjie Effect. The optional extra photos for Files 01 and 03 are unfilled. File 02 shows Chichi directly from the local `chichi.jpg` file.
+- **Personal finale:** A local video, original couple photo, personalized letter, sunflower bouquet, digital gift, and Bible verse cards are present. The letter should receive a final personal proofreading before sharing.
 
-## Files
+## Final launch checklist
 
-- `index.html`: complete birthday page with the private finale **included**.
-- `styles.css`: styles for desktop, mobile, scrapbook notes, bouquet, and art reveal.
-- `app.js`: passcode, carousels, cake, video playback, hidden finale, art reveal.
-- `content.js`: contributor names, assets, quote entries, memories, **Aaron's personal letter and video path**.
-- `appreciation.js`: owner-only editing of sticky-note quotes (Alt + Shift + E). This is not authenticated; don't rely on it for private submissions on a public website.
-- `assets/photos`: current real display pictures including Freyja + Paolo, Liam, Maggie, Yeisha's video frame, Shawn + Victor, and the digital artwork.
-- `assets/videos`: four submitted birthday videos.
-- `.nojekyll`: GitHub Pages static-file compatibility.
+- [ ] Decide whether Michiko's birthday photo and video will be supplied. If not, consider removing the unfilled card rather than showing a "Video not submitted yet" message.
+- [ ] Collect Shawn's and Michiko's appreciation messages if possible. Empty notes are hidden from the sticky-note wall.
+- [ ] Proofread the personal letter and check the spelling of names and nicknames. This is a personal choice, not a technical blocker.
+- [ ] Test code **1119** on a phone and desktop.
+- [ ] Open all three Marjie Files and verify the bonus file unlocks.
+- [ ] Test the eight published friends' videos and three gallery memory videos for both picture and sound.
+- [ ] Verify all six gallery tiles show their actual pictures/posters.
+- [ ] Blow out all three candles, follow the fake ending, open the hidden finale, play Aaron's video, reveal the digital gift, and open the letter.
+- [ ] Check sound levels, photos, scrolling, and media playback on the **actual device and network** Marjie will use.
+- [ ] Make sure GitHub Pages has deployed the final commit and refresh the site to avoid stale cached files.
 
-## Already present
+## Files and editing
 
-- Freyja + Paolo — shared photo and video
-- Liam — photo and video
-- Maggie — photo, video, and exact appreciation note
-- Yeisha — video and thumbnail extracted from it
-- Shawn + Victor — photo; video not yet submitted
-- Paolo — exact appreciation quote, attributed separately from the Freyja + Paolo shared video
-- Chloe + Precious — combined card; submissions pending
-- All existing Marjie Files, appreciation sticky notes, cake, **sunflower bouquet**, digital-art gift, letter section and finale ending
+- `index.html`: all website sections and the finale markup.
+- `styles.css`: responsive layouts, Polaroids, buttons, and animations.
+- `app.js`: lock screen, carousels, video modal, candles, gallery, and reveal logic.
+- `content.js`: filenames, appreciation messages, letters, and other editable copy.
+- `appreciation.js`: optional browser-local editor and appreciation wall.
+- All media is stored as root-level files. The entries in `content.js` use root-relative filenames.
 
-## Still to complete (do not present placeholders as finished)
+**To update a message:** Change the quote in `content.js` and commit. The appreciation editor (`?edit=1` or Alt+Shift+E) saves to that browser only, not GitHub.
 
-1. **Your personal video:** Copy your MP4 to `assets/videos/aaron_finale.mp4`; in `content.js`, set `BDAY.personal.video` to `"assets/videos/aaron_finale.mp4"`.
-2. **Your personal letter:** Replace `BDAY.personal.letter` in `content.js`. The current paragraph is a *draft*, not your final personal words.
-3. **Missing greetings/photos:** Copy each actual submitted video/photo into `assets/` and set the relevant `BDAY.innerCircle` or `BDAY.birthdayMessages` `video` and `photo` paths in `content.js`. Keep pairs combined unless you choose otherwise.
-4. **Marjie Files / Memories:** Several sections still have intentional photo/story placeholders; add your own real stories/photos.
-5. Appreciation answers can be entered with **Alt + Shift + E** while previewing, but for reliable GitHub deployment edit `BDAY.appreciationNotes` in `content.js` and commit the change. Browser-local changes do not automatically publish to GitHub. Do not create separate public uploads of private draft notes unless intended.
+## Privacy and offline note
 
-## Testing locally
+This is a **public** GitHub repository. The passcode and `noindex` directive do not make the personal letter, photos, videos, or digital artwork private. Anyone with the asset URL can fetch a file. Confirm that participants are comfortable with public hosting.
 
-Open `index.html` from the extracted folder. For more reliable testing, run `python -m http.server 8000` in this folder and open `http://localhost:8000` in a browser. No build tools or package manager needed.
-
-## Updating your site later
-
-Replace the needed asset(s) and edit `content.js`. Commit changed files to GitHub. The published page will redeploy automatically. Keep the folder structure intact; do not upload the ZIP itself as a website file.
+Videos are locally hosted on GitHub Pages instead of Google Drive, so they do not require a Drive player. **The site itself still needs internet unless all website and media files are downloaded or cached in advance.** For an offline backup, download the complete repository, not just `index.html`, and serve the folder via a small local web server.
