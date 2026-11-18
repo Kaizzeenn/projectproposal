@@ -14,6 +14,7 @@
   let lockErrorTimer = 0;
   let toastTimer = 0;
   let activeVideo = null;
+  let lastModalTrigger = null;
 
   // Screen navigation
   function goTo(id) {
@@ -157,6 +158,7 @@
 
   function openModal({title,eyebrow,body,caption}){
     const modal=$('#mediaModal');if(!modal)return;
+    lastModalTrigger=document.activeElement;
     $('#modalTitle').textContent=title;$('#modalEyebrow').textContent=eyebrow;
     $('#modalBody').innerHTML=body;$('#modalCaption').textContent=caption||'';
     modal.hidden=false;document.body.style.overflow='hidden';
@@ -168,6 +170,8 @@
     if(activeVideo){activeVideo.pause();activeVideo=null;}
     $('#modalBody').innerHTML=''; // Unmount Drive iframe so playback stops on close.
     modal.hidden=true;document.body.style.overflow=$('#lockScreen')?.hidden?'':'hidden';
+    if(lastModalTrigger?.isConnected) lastModalTrigger.focus();
+    lastModalTrigger=null;
   }
   $$('[data-close-modal]').forEach(el=>el.addEventListener('click',closeModal));
   function showVideo(person){
