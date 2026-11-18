@@ -151,11 +151,11 @@
     img.src=path;slot.hidden=false;
   });
 
-  // Memories — real photos automatically replace placeholders once paths are supplied.
+  // Gallery cards support both photos and original video moments.
   const memoryGrid=$('#memoryGrid');
-  if(memoryGrid) memoryGrid.innerHTML=BDAY.memories.map((m,i)=>`<button class="memory-card" type="button" data-action="memory" data-index="${i}" aria-label="View ${escapeHTML(m.label)}">
+  if(memoryGrid) memoryGrid.innerHTML=BDAY.memories.map((m,i)=>`<button class="memory-card" type="button" data-action="memory" data-index="${i}" aria-label="${safePath(m.video)?'Play':'View'} ${escapeHTML(m.label)}">
      ${safePath(m.photo)?`<img src="${escapeHTML(safePath(m.photo))}" alt="${escapeHTML(m.label)}" onerror="this.remove()">`:''}
-     <span class="memory-graphic">${['✿','♡','✦','✳','❋','♡'][i%6]}</span><span class="memory-label">MEMORY ${String(i+1).padStart(2,'0')}</span><span class="memory-caption">${escapeHTML(m.caption)}</span>
+     <span class="memory-graphic">${['✿','♡','✦','✳','❋','♡'][i%6]}</span>${safePath(m.video)?'<span class="memory-video-play" aria-hidden="true">▶</span>':''}<span class="memory-label">MEMORY ${String(i+1).padStart(2,'0')}</span><span class="memory-caption">${escapeHTML(m.caption)}</span>
      </button>`).join('');
 
   function openModal({title,eyebrow,body,caption}){
@@ -190,9 +190,13 @@
     }
   }
 
-  function showMemory(i){const p=BDAY.memories[i],path=safePath(p.photo);
-    const body=path?`<img class="modal-memory-image" src="${escapeHTML(path)}" alt="${escapeHTML(p.label)}">`:`<div class="video-preview"><div><div class="demo-circle">✿</div><strong>${escapeHTML(p.label)}</strong><span>Add your real photo to bring this memory to life.</span></div></div>`;
-    openModal({title:p.caption,eyebrow:'A LITTLE MARJIE MOMENT',body,caption:path?'A moment to remember ♡':'Demo photo placeholder. Add the matching file in content.js.'});
+  function showMemory(i){
+    const p=BDAY.memories[i],path=safePath(p.photo),video=safePath(p.video);
+    const body=video
+      ?`<video class="modal-memory-video" src="${escapeHTML(video)}" ${path?`poster="${escapeHTML(path)}"`:''} controls playsinline preload="metadata"></video>`
+      :path?`<img class="modal-memory-image" src="${escapeHTML(path)}" alt="${escapeHTML(p.label)}">`
+      :`<div class="video-preview"><div><div class="demo-circle">✿</div><strong>${escapeHTML(p.label)}</strong><span>Add your real photo to bring this memory to life.</span></div></div>`;
+    openModal({title:p.caption,eyebrow:'A LITTLE MARJIE MOMENT',body,caption:video?'A little moment caught on video ♡':path?'A moment to remember ♡':'Demo photo placeholder. Add the matching file in content.js.'});
   }
   document.addEventListener('click',e=>{
     const btn=e.target.closest('[data-action]');if(!btn)return;
