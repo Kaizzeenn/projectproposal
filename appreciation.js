@@ -1,8 +1,8 @@
 (() => {
   'use strict';
   const $ = (s) => document.querySelector(s);
-  const names = ['Freyja + Paolo','Paolo','Chesca','Glesnan','Chloe + Precious','Yeisha','Liam','Shawn + Victor','Maggie','Michiko'];
-  const STORAGE_KEY = 'projectBDAY_appreciation_2026_11';
+  const names = ["Freyja","Paolo","Chesca","Glesnan","Chloe","Precious","Yeisha","Liam","Shawn","Victor","Maggie","Michiko"];
+  const STORAGE_KEY = 'projectBDAY_appreciation_2026_11_18_final'; // New release key: published notes are not shadowed by obsolete browser drafts.
   const seedEl = $('#appreciationSeed');
   // Snapshot the original locked page, before any editor or birthday interaction.
   const pristineHTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
