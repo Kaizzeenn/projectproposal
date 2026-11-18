@@ -22,7 +22,7 @@ const BDAY = {
     },
     {
       "name": "Glesnan",
-      "quote": ""
+      "quote": "i love how honest marj is especially when it comes to her thoughts so you know you're getting the full version, though it may have some negative effects, its still one of her defining traits kasi marj isn't marj if she starts to sugarcoat her words. 😌😌"
     },
     {
       "name": "Chloe",
