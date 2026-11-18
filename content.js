@@ -108,8 +108,7 @@ const BDAY = {
     {
       "name": "Shawn + Victor",
       "photo": "shawn_victor.png",
-      "video": "",
-      "driveVideoId": "1YYPhmVCjmDhyALkwyNFFWoQKeWHuE0xk",
+      "video": "shawn_victor_greeting.mp4",
       "videoInfo": "A birthday greeting from Shawn + Victor"
     },
     {
