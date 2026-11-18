@@ -1,0 +1,39 @@
+name: Import Marjie Moments gallery video
+on:
+  push:
+    paths:
+      - '.github/workflows/import-marjie-moments-video.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Marjie Moments source
+        run: |
+          python3 -m pip install --quiet 'gdown==5.2.0' imageio-ffmpeg
+          gdown --id '1Nr2OAhqUdFIZmA_-c0UzuPadiZgoVW6Z' --output /tmp/marjie_moments_source.mov
+          test -s /tmp/marjie_moments_source.mov
+      - name: Make web-friendly MP4 and gallery cover from the original footage
+        run: |
+          FFMPEG="$(python3 -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')"
+          "$FFMPEG" -nostdin -y -hide_banner -loglevel error -i /tmp/marjie_moments_source.mov \
+            -map 0:v:0 -map 0:a:0? -vf 'scale=1280:-2' \
+            -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p \
+            -c:a aac -b:a 128k -movflags +faststart marjie_moments_video.mp4
+          "$FFMPEG" -nostdin -y -hide_banner -loglevel error -ss 00:00:03 -i /tmp/marjie_moments_source.mov \
+            -vf 'scale=1280:-2' -frames:v 1 -q:v 3 marjie_moments_poster.jpg
+          test -s marjie_moments_video.mp4
+          test -s marjie_moments_poster.jpg
+          ls -lh marjie_moments_video.mp4 marjie_moments_poster.jpg
+      - name: Publish media in website repo
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add marjie_moments_video.mp4 marjie_moments_poster.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add Marjie Moments bowling video and cover'
+            git push
+          fi
