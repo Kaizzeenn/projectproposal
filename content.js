@@ -1,9 +1,9 @@
-/* Project BDAY — Complete GitHub Pages birthday website, November 18, 2026.
-   Contains friends' uploaded media, the complete hidden-finale flow, and personal
-   digital art. Source and media are public when hosted in a public repository.
-   Birthday screen passcode 1119 is decorative, NOT access protection.
-   Personal finale video and final letter have not yet been supplied.
-   Add future photos/videos under assets and update this file's paths.
+/* Project BDAY — Birthday edition, November 19, 2026.
+   Includes the submitted friends' media, gallery memories, personal finale video,
+   original couple photo, letter, digital gift, and sunflower bouquet.
+   The 1119 screen code is decorative, NOT access protection; public GitHub
+   repositories expose all these files. See README.md for final testing.
+   Add future local media to the repository and update this file's filenames.
 */
 const BDAY = {
   "passcode": "1119",
