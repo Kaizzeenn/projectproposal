@@ -1,0 +1,95 @@
+name: Final birthday website smoke test
+on:
+  push:
+    paths:
+      - '.github/workflows/final-birthday-smoke-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify JS syntax and all referenced media files
+        run: |
+          node --check app.js
+          node --check content.js
+          node --check appreciation.js
+          node <<'NODE'
+          const fs=require('node:fs'),vm=require('node:vm');
+          const sandbox={};vm.createContext(sandbox);
+          vm.runInContext(fs.readFileSync('content.js','utf8')+'; globalThis.birthday=BDAY;',sandbox);
+          const d=sandbox.birthday,all=[];
+          for(const p of [...d.innerCircle,...d.birthdayMessages,...d.memories]){
+            for(const k of ['photo','video'])if(p[k])all.push(p[k]);
+          }
+          for(const k of ['video','couplePhoto'])if(d.personal[k])all.push(d.personal[k]);
+          const h=fs.readFileSync('index.html','utf8');
+          for(const m of h.matchAll(/(?:src|href)="([^"]+)"/g)){
+            const p=m[1].split('?')[0];
+            if(/\.(?:png|jpe?g|webp|mp4|js|css)$/i.test(p)&&!/^https?:/.test(p))all.push(p);
+          }
+          for(const p of all){if(!fs.existsSync(p))throw new Error('Missing asset: '+p)}
+          if(d.innerCircle.filter(p=>p.video).length!==6)throw Error('Inner circle missing video');
+          if(d.memories.length!==6||d.memories.some(p=>!p.photo))throw Error('Memory cards incomplete');
+          console.log('Static checks passed:',all.length,'references,',d.innerCircle.length,'inner circle cards,',d.memories.length,'gallery cards');
+          NODE
+      - name: Install Chromium for interactive smoke testing
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Test complete mobile birthday flow
+        run: |
+          python3 -m http.server 8899 --bind 127.0.0.1 >/tmp/birthday-site-server.log 2>&1 &
+          sleep 2
+          node <<'NODE'
+          const {chromium}=require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+            const page=await context.newPage(),errors=[];
+            page.on('pageerror',e=>errors.push(e.message));
+            await page.goto('http://127.0.0.1:8899/',{waitUntil:'domcontentloaded'});
+            if(!await page.locator('.lock-story .lock-polaroid').isVisible())throw Error('Mobile Polaroid is hidden');
+            for(const digit of '1119')await page.locator('#numberPad [data-digit="'+digit+'"]').click();
+            await page.waitForFunction(()=>document.querySelector('#lockScreen').hidden,{timeout:8000});
+            if(await page.locator('#memoryGrid .memory-card').count()!==6)throw Error('Missing memory cards');
+            for(let i=0;i<3;i++)await page.locator('.mf-toggle').nth(i).click();
+            if(!await page.locator('#mfBonus').isVisible())throw Error('Bonus Marjie File did not unlock');
+            await page.locator('#innerCard [data-action="video"]').click();
+            await page.waitForFunction(()=>document.querySelector('#mediaModal video')?.readyState>0,null,{timeout:20000});
+            await page.locator('#mediaModal .modal-close').click();
+            await page.locator('#memoryGrid .memory-card').nth(3).click();
+            await page.waitForFunction(()=>document.querySelector('#mediaModal video')?.readyState>0,null,{timeout:20000});
+            await page.locator('#mediaModal .modal-close').click();
+            for(let i=0;i<3;i++)await page.locator('.candle').nth(i).click();
+            if(!await page.locator('#finishStory').isEnabled())throw Error('Cake button not enabled');
+            await page.locator('#finishStory').click();
+            await page.locator('#endButton').click();
+            await page.locator('#openLastMessage').waitFor({state:'visible',timeout:8000});
+            await page.locator('#openLastMessage').click();
+            await page.locator('#aaronMarjiePhotoFrame img').waitFor({state:'visible'});
+            await page.waitForFunction(()=>document.querySelector('#aaronMarjiePhoto')?.naturalWidth>0,null,{timeout:10000});
+            await page.locator('#openDigitalGift').click();
+            if(!await page.locator('#digitalGiftReveal').isVisible())throw Error('Digital gift not revealed');
+            await page.locator('#playAaronVideo').click();
+            await page.waitForFunction(()=>document.querySelector('#mediaModal video')?.readyState>0,null,{timeout:30000});
+            await page.locator('#mediaModal .modal-close').click();
+            await page.locator('#openLetter').click();
+            await page.locator('#letterReveal').waitFor({state:'visible',timeout:8000});
+            if(errors.length)throw Error('Uncaught browser errors: '+errors.join('; '));
+            console.log('Mobile birthday flow PASSED: lock, 3 files, bonus, videos, gallery, cake, hidden finale, gift, letter');
+            await page.close();
+            const desktop=await browser.newPage({viewport:{width:1280,height:800}});
+            desktop.on('pageerror',e=>errors.push(e.message));
+            await desktop.goto('http://127.0.0.1:8899/',{waitUntil:'domcontentloaded'});
+            if(!await desktop.locator('.lock-story .lock-polaroid').isVisible())throw Error('Desktop Polaroid hidden');
+            if(errors.length)throw Error('Desktop uncaught errors: '+errors.join('; '));
+            console.log('Desktop initial render PASSED');
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
