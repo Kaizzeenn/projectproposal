@@ -142,7 +142,8 @@ const BDAY = {
       "label": "Small moments"
     },
     {
-      "photo": "",
+      "photo": "marjie_favorite_memories_poster.jpg",
+      "video": "marjie_favorite_memories.mp4",
       "caption": "Favorite memories",
       "label": "Favorite memories"
     },
