@@ -1,0 +1,52 @@
+name: Import Chloe and Precious birthday media
+on:
+  push:
+    paths:
+      - '.github/workflows/import-chloe-precious-media.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-chloe-precious:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download original photo and video
+        run: |
+          python3 -m pip install --quiet "gdown==5.2.0" "pillow" "pillow-heif"
+          gdown --id "1MeVua2N-cpehfERJ-8WaSuwIW4_4pQQb" --output "/tmp/chloe_precious_original.heic"
+          gdown --id "1CxJ3gGtXs4P7k-QKZo7jkJW42Jg7-3sV" --output "/tmp/chloe_precious_original.mov"
+          test -s /tmp/chloe_precious_original.heic
+          test -s /tmp/chloe_precious_original.mov
+      - name: Convert HEIC photo to JPG without generative edits
+        run: |
+          python3 - <<'PY'
+          from PIL import Image, ImageOps
+          from pillow_heif import register_heif_opener
+          register_heif_opener()
+          image=Image.open('/tmp/chloe_precious_original.heic')
+          image=ImageOps.exif_transpose(image).convert('RGB')
+          image.save('chloe_precious.jpg', 'JPEG', quality=90, optimize=True, progressive=True)
+          print('Photo:', image.size)
+          PY
+          test -s chloe_precious.jpg
+      - name: Convert greeting to browser-compatible MP4
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -nostdin -y -hide_banner -loglevel error -i /tmp/chloe_precious_original.mov \
+            -vf "scale=854:-2" -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p \
+            -c:a aac -b:a 128k -movflags +faststart chloe_precious_greeting.mp4
+          test -s chloe_precious_greeting.mp4
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 chloe_precious_greeting.mp4
+      - name: Publish both files to birthday website
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chloe_precious.jpg chloe_precious_greeting.mp4
+          if ! git diff --cached --quiet; then
+            git commit -m "Add Chloe and Precious birthday photo and video"
+            git push
+          fi
