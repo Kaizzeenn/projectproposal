@@ -348,3 +348,28 @@ body.ap-editor-open{overflow:hidden!important}
   .letter-section .letter-surprise{padding-top:0}
   .letter-section .envelope-shell{max-width:100%}
 }
+
+
+/* Marjie's actual favorites: photo collages, Potato Corner, and The Marjie Effect. */
+.mf-art-photos{background:radial-gradient(circle at 53% 40%,#fbe8e9,#f5d9dc 69%,#f4e9e0)}
+.mf-duo-photo{position:absolute;display:block;width:43%;height:75%;max-width:148px;border:5px solid #fffdf8;background:#fffdf8;box-shadow:0 5px 13px #744d5335;overflow:hidden}
+.mf-duo-photo img{width:100%;height:100%;display:block;object-fit:cover}
+.mf-duo-hello{left:13%;top:11%;transform:rotate(-9deg);z-index:1}.mf-duo-panda{right:13%;top:12%;transform:rotate(8deg);z-index:2}
+.mf-art-photos .mf-cat-label{top:9px;left:8px;z-index:4;font-size:.51rem;padding:4px 5px;transform:rotate(-12deg)}
+.mf-art-photos .mf-panda-label{bottom:8px;right:7px;z-index:4;font-size:.5rem;padding:4px 5px}
+.mf-art-photos .mf-art-heart{z-index:5;top:4px;right:15px}
+.mf-art-fries{background:linear-gradient(135deg,#faedce,#fce3d3 70%,#f5debc)}
+.mf-art-fries .mf-art-flower{position:absolute;left:12%;top:-9px;opacity:.72;font-size:6.6rem;transform:rotate(-13deg)}
+.mf-fries-img{position:absolute;z-index:2;width:66%;height:110%;right:10%;bottom:-8%;display:flex;align-items:center;justify-content:center;transform:rotate(7deg);filter:drop-shadow(0 6px 5px #9f70354f)}
+.mf-fries-img img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;display:block}
+.mf-fries-label{position:absolute;z-index:3;left:12px;bottom:10px;font-size:.54rem;letter-spacing:.11em;font-weight:800;color:#89561a;padding:6px 9px;background:#fff8dc;border:1px solid #dfbc81;transform:rotate(-8deg);box-shadow:2px 3px 6px #7d543622}
+.mf-art-fries .mf-paw{z-index:4;top:7px;left:10px;padding:4px 6px;font-size:1rem;background:#fff9f5e6}
+.mf-art-fries .mf-paw small{font-size:.53rem}
+.mf-art-effect{background:linear-gradient(145deg,#e7ecdf,#ecdfdc);color:#806b74}
+.mf-effect-flower{position:absolute;z-index:0;font:8.5rem/1 Georgia,serif;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-15deg);color:#ccaf65;opacity:.29}
+.mf-effect-paper{position:absolute;display:block;z-index:2;padding:7px 10px;background:#fffcf4;border:1px solid #ead3c8;color:#9a6573;font:italic clamp(.7rem,1.2vw,.87rem)/1.3 Georgia,serif;box-shadow:1px 4px 7px #6c565125;text-align:center}
+.mf-effect-note-one{left:8%;top:16%;transform:rotate(-9deg)}
+.mf-effect-note-two{right:8%;top:19%;transform:rotate(8deg);background:#fbe7e7}
+.mf-effect-note-three{left:23%;bottom:14%;transform:rotate(-3deg);background:#fff3d9}
+@media(min-width:1051px){.mf-art-effect .mf-effect-paper{padding:7px 8px;font-size:.74rem}}
+@media(max-width:720px){.mf-art-photos .mf-duo-photo{width:36%}.mf-art-fries .mf-fries-img{width:57%}}
