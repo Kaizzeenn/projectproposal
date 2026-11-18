@@ -1,0 +1,39 @@
+name: Import Small Moments gallery video
+on:
+  push:
+    paths:
+      - '.github/workflows/import-marjie-small-moments.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download uploaded Small Moments video
+        run: |
+          python3 -m pip install --quiet 'gdown==5.2.0' imageio-ffmpeg
+          gdown --id '1ylREj8Ray83O6Y8T07EERsS6qXDittxM' --output /tmp/marjie_small_moments.mov
+          test -s /tmp/marjie_small_moments.mov
+      - name: Generate MP4 and original-footage cover
+        run: |
+          FFMPEG="$(python3 -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')"
+          "$FFMPEG" -nostdin -y -hide_banner -loglevel error -i /tmp/marjie_small_moments.mov \
+            -map 0:v:0 -map 0:a:0? -vf 'scale=720:-2' \
+            -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p \
+            -c:a aac -b:a 128k -movflags +faststart marjie_small_moments.mp4
+          "$FFMPEG" -nostdin -y -hide_banner -loglevel error -ss 00:00:02 -i /tmp/marjie_small_moments.mov \
+            -vf 'scale=720:-2' -frames:v 1 -q:v 3 marjie_small_moments_poster.jpg
+          test -s marjie_small_moments.mp4
+          test -s marjie_small_moments_poster.jpg
+          ls -lh marjie_small_moments.mp4 marjie_small_moments_poster.jpg
+      - name: Publish video and cover to birthday website
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add marjie_small_moments.mp4 marjie_small_moments_poster.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add Small Moments video and preview to birthday gallery'
+            git push
+          fi
