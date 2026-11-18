@@ -1,0 +1,41 @@
+name: Import Marjie's hero Polaroid photo
+on:
+  push:
+    paths:
+      - '.github/workflows/import-marjie-hero-polaroid.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-photo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download original user photo
+        run: |
+          python3 -m pip install --quiet 'gdown==5.2.0' 'pillow'
+          gdown --id '1NGSQQkZ4krDozNZwbFcyduX2NbRLj599' --output '/tmp/marjie_hero_polaroid_source.png'
+          test -s '/tmp/marjie_hero_polaroid_source.png'
+      - name: Optimize JPG for website without changing the photograph
+        run: |
+          python3 - <<'PY'
+          from PIL import Image, ImageOps
+          image=Image.open('/tmp/marjie_hero_polaroid_source.png')
+          image=ImageOps.exif_transpose(image).convert('RGB')
+          if image.width>1600 or image.height>1600:
+              image.thumbnail((1600,1600),Image.Resampling.LANCZOS)
+          image.save('marjie_hero_polaroid.jpg','JPEG',quality=88,optimize=True,progressive=True)
+          print('Dimensions:', image.size)
+          PY
+          test -s marjie_hero_polaroid.jpg
+      - name: Publish real photo to GitHub Pages repo
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add marjie_hero_polaroid.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add Marjie's real photo for hero Polaroid'
+            git push
+          fi
