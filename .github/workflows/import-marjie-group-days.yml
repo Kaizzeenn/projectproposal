@@ -1,0 +1,31 @@
+name: Import Marjie's group days photo
+on:
+  push:
+    paths:
+      - '.github/workflows/import-marjie-group-days.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  add-photo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download original group photo
+        run: |
+          python3 -m pip install --quiet gdown==5.2.0
+          gdown --id "1ekcHFIwTCvYtPm9gNhpzbP7xlpXJBq9w" --output "marjie_group_days.png"
+          test -s marjie_group_days.png
+          file marjie_group_days.png
+      - name: Save photo in the website repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add marjie_group_days.png
+          if ! git diff --cached --quiet; then
+            git commit -m "Add original group days memory photo"
+            git push
+          fi
