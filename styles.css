@@ -373,3 +373,12 @@ body.ap-editor-open{overflow:hidden!important}
 .mf-effect-note-three{left:23%;bottom:14%;transform:rotate(-3deg);background:#fff3d9}
 @media(min-width:1051px){.mf-art-effect .mf-effect-paper{padding:7px 8px;font-size:.74rem}}
 @media(max-width:720px){.mf-art-photos .mf-duo-photo{width:36%}.mf-art-fries .mf-fries-img{width:57%}}
+
+
+/* Chichi joins the Potato Corner + sunflower collage in Marjie File 02. */
+.mf-art-fries .mf-chichi-photo{position:absolute;z-index:3;display:block;left:8%;bottom:10%;width:42%;height:69%;border:5px solid #fffdfa;background:#fffdfa;box-shadow:0 5px 13px #744d5335;overflow:hidden;transform:rotate(-9deg)}
+.mf-art-fries .mf-chichi-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.mf-art-fries .mf-fries-img{width:57%;right:0;transform:rotate(9deg)}
+.mf-art-fries .mf-fries-label{left:auto;right:7px;transform:rotate(6deg)}
+.mf-art-fries .mf-paw{z-index:5}
+@media(max-width:720px){.mf-art-fries .mf-chichi-photo{width:43%;left:7%}.mf-art-fries .mf-fries-img{width:57%}}

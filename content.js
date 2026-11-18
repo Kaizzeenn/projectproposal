@@ -59,7 +59,7 @@ const BDAY = {
   ],
   "marjieFiles": {
     "universePhoto": "",
-    "smilesPhoto": "",
+    "smilesPhoto": "chichi.jpg",
     "lorePhoto": "",
     "loreStory": "Her friends notice how caring and genuine she is, how she makes even new people feel comfortable and included, and how her bubbly energy and creativity brighten the group. That's the Marjie Effect. ♡",
     "loreBy": "some people just feel like sunshine ♡",
