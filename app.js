@@ -177,7 +177,9 @@
     const path=safePath(person.video);
     const driveId=safeDriveVideoId(person.driveVideoId);
     if(path){
-      openModal({title:`From ${person.name}`,eyebrow:'A VIDEO JUST FOR MARJIE',body:`<video src="${escapeHTML(path)}" controls playsinline preload="metadata"></video>`,caption:person.videoInfo || 'A birthday greeting ♡'});
+      // A versioned URL makes sure the replaced Shawn + Victor MP4 is not cached as the old recording.
+      const videoSrc = path === 'shawn_victor_greeting.mp4' ? `${path}?v=20261118-new-upload` : path;
+      openModal({title:`From ${person.name}`,eyebrow:'A VIDEO JUST FOR MARJIE',body:`<video src="${escapeHTML(videoSrc)}" controls playsinline preload="metadata"></video>`,caption:person.videoInfo || 'A birthday greeting ♡'});
     } else if(driveId){
       const viewUrl=`https://drive.google.com/file/d/${driveId}/view`;
       const previewUrl=`https://drive.google.com/file/d/${driveId}/preview`;
