@@ -7,16 +7,14 @@ Live website: https://kaizzeenn.github.io/projectproposal/
 ## Current progress
 
 - **Friend birthday videos:** 8 of 9 configured cards have a photo and local MP4. The remaining card is Michiko, whose photo and video are still blank.
-- **Appreciation messages:** 10 of 12 filled in `content.js`. Shawn and Michiko are blank.
+- **Appreciation messages:** 10 published notes are available; unfilled entries stay hidden and are not launch requirements.
 - **Gallery:** All 6 memory tiles have real photos or videos, including Favorite memories, Little adventures, Funny photos, Small moments, The group days and Marjie moments.
 - **Marjie Files:** Three working expandable files with Hello Kitty, Panda, Potato Corner, Chichi and The Marjie Effect. The optional extra photos for Files 01 and 03 are unfilled. File 02 shows Chichi directly from the local `chichi.jpg` file.
-- **Personal finale:** A local video, original couple photo, personalized letter, sunflower bouquet, digital gift, and Bible verse cards are present. The letter should receive a final personal proofreading before sharing.
+- **Personal finale:** A local video, original couple photo, personalized letter, sunflower bouquet, digital gift, and Bible verse cards are present. **Aaron has approved the final personal letter.**
 
 ## Final launch checklist
 
 - [ ] Decide whether Michiko's birthday photo and video will be supplied. If not, consider removing the unfilled card rather than showing a "Video not submitted yet" message.
-- [ ] Collect Shawn's and Michiko's appreciation messages if possible. Empty notes are hidden from the sticky-note wall.
-- [ ] Proofread the personal letter and check the spelling of names and nicknames. This is a personal choice, not a technical blocker.
 - [ ] Test code **1119** on a phone and desktop.
 - [ ] Open all three Marjie Files and verify the bonus file unlocks.
 - [ ] Test the eight published friends' videos and three gallery memory videos for both picture and sound.
