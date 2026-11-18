@@ -1,0 +1,43 @@
+name: Import Favorite memories birthday video
+on:
+  push:
+    paths:
+      - '.github/workflows/import-favorite-memories.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-favorite-memory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download original favorite memories video
+        run: |
+          python3 -m pip install --quiet "gdown==5.2.0"
+          gdown --id "1gl4UmmCoI_E-kTPS1GWLZnPwhO0E-NbI" --output "/tmp/favorite_memories_original.mp4"
+          test -s /tmp/favorite_memories_original.mp4
+      - name: Convert video and make a real thumbnail
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -nostdin -y -hide_banner -loglevel error -i /tmp/favorite_memories_original.mp4 \
+            -vf "scale=854:-2" -c:v libx264 -preset veryfast -crf 26 \
+            -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart \
+            marjie_favorite_memories.mp4
+          ffmpeg -nostdin -y -hide_banner -loglevel error -ss 42 \
+            -i /tmp/favorite_memories_original.mp4 -frames:v 1 \
+            -vf "scale=960:-2" -q:v 3 marjie_favorite_memories_poster.jpg
+          test -s marjie_favorite_memories.mp4
+          test -s marjie_favorite_memories_poster.jpg
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 marjie_favorite_memories.mp4
+      - name: Publish video and poster to GitHub Pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add marjie_favorite_memories.mp4 marjie_favorite_memories_poster.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m "Add original Favorite memories video and poster"
+            git push
+          fi
