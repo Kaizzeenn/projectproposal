@@ -439,3 +439,81 @@ body.ap-editor-open{overflow:hidden!important}
   .lock-story .lock-polaroid{width:137px;margin:10px auto 0}
   .lock-story .lock-polaroid-art{height:98px}
 }
+
+
+/* One original-photo Polaroid, with an HTML/CSS birthday hat and tiny doodled hearts.
+   No AI replacement or modifications to Marjie's photo file. */
+.hero-collage-single .frame-front{
+  left:50%;
+  top:46px;
+  width:min(78%,340px);
+  transform:translateX(-50%) rotate(5deg);
+  animation:none;
+}
+.hero-collage-single .hero-mini-heart{
+  position:absolute;
+  z-index:3;
+  color:#b96b80;
+  font-family:Georgia,serif;
+  font-weight:400;
+  line-height:1;
+  pointer-events:none;
+  text-shadow:0 1px 1px rgba(255,250,245,.55);
+}
+.hero-collage-single .hero-heart-left{left:6%;top:27%;font-size:32px;transform:rotate(-16deg)}
+.hero-collage-single .hero-heart-right{right:4%;top:54%;font-size:27px;transform:rotate(12deg)}
+.hero-collage-single .hero-heart-bottom{left:16%;bottom:11%;font-size:20px;transform:rotate(-8deg)}
+.hero-collage-single .hero-party-hat{
+  position:absolute;
+  z-index:4;
+  left:55%;
+  top:1%;
+  width:64px;
+  height:76px;
+  transform:rotate(12deg);
+  transform-origin:center bottom;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 2px rgba(65,32,39,.23));
+}
+.hero-collage-single .hero-party-hat i{position:absolute;display:block}
+.hero-collage-single .hero-party-cone{
+  left:7px;
+  top:10px;
+  width:50px;
+  height:55px;
+  background:repeating-linear-gradient(123deg,#e7a0af 0 10px,#ffe7d5 10px 20px);
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+.hero-collage-single .hero-party-brim{
+  left:3px;
+  bottom:4px;
+  width:58px;
+  height:14px;
+  border:1px solid #e7c7c0;
+  border-radius:50%;
+  background:#fff1db;
+  box-shadow:0 1px 0 #f6d2c7;
+}
+.hero-collage-single .hero-party-pom{
+  left:26px;
+  top:1px;
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:#fff1db;
+  box-shadow:0 0 0 3px #fff1db7d;
+}
+@media(max-width:790px){
+  .hero-collage-single .frame-front{left:50%;top:8px;width:min(72%,280px)}
+  .hero-collage-single .hero-party-hat{transform:rotate(12deg) scale(.84);transform-origin:center top}
+  .hero-collage-single .hero-heart-left{left:10%;top:20%;font-size:25px}
+  .hero-collage-single .hero-heart-right{right:6%;top:53%;font-size:23px}
+  .hero-collage-single .hero-heart-bottom{left:11%;bottom:13%;font-size:18px}
+}
+@media(max-width:530px){
+  .hero-collage-single .frame-front{left:50%;top:4px;width:min(70%,230px)}
+  .hero-collage-single .hero-party-hat{transform:rotate(12deg) scale(.72);transform-origin:center top}
+  .hero-collage-single .hero-heart-left{left:5%;top:21%}
+  .hero-collage-single .hero-heart-right{right:4%;top:58%}
+  .hero-collage-single .hero-heart-bottom{left:12%;bottom:12%}
+}
