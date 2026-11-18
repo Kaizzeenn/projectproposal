@@ -131,7 +131,7 @@ const BDAY = {
       "label": "Little adventures"
     },
     {
-      "photo": "",
+      "photo": "marjie_funny_photo.jpg",
       "caption": "Funny photos",
       "label": "Funny photos"
     },
