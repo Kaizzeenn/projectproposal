@@ -4,6 +4,7 @@
   const $$ = (selector) => [...document.querySelectorAll(selector)];
   const escapeHTML = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const safePath = (path) => typeof path === 'string' && /^(?:assets\/(?:photos|videos)\/)?[a-z0-9][a-z0-9_. -]*\.(?:png|jpe?g|webp|mp4)$/i.test(path) && !path.includes('..') ? path : '';
+  const safeDriveVideoId = (id) => typeof id === 'string' && /^[A-Za-z0-9_-]{20,100}$/.test(id) ? id : '';
   const isFriends = !!window.BDAY_FRIENDS_ONLY;
   const people = BDAY.innerCircle;
   const others = BDAY.birthdayMessages;
@@ -86,7 +87,7 @@
     const index=inner?innerIndex:wishesIndex;
     const person=data[index];
     const el=$(inner?'#innerCard':'#wishesCard'); if(!el) return;
-    const ready=!!safePath(person.video);
+    const ready=!!(safePath(person.video) || safeDriveVideoId(person.driveVideoId));
     const typeLabel=inner?'INNER CIRCLE / VIDEO GREETING':'BIRTHDAY WISHES / VIDEO GREETING';
     const status=ready
       ? `<div class="video-status video-status-ready"><span class="status-symbol">✓</span><div><strong>Video ready</strong><span>${escapeHTML(person.videoInfo || 'A greeting just for you.')}</span></div></div>`
@@ -168,13 +169,20 @@
   }
   function closeModal(){const modal=$('#mediaModal');if(!modal||modal.hidden)return;
     if(activeVideo){activeVideo.pause();activeVideo=null;}
+    $('#modalBody').innerHTML=''; // Unmount Drive iframe so playback stops on close.
     modal.hidden=true;document.body.style.overflow=$('#lockScreen')?.hidden?'':'hidden';
   }
   $$('[data-close-modal]').forEach(el=>el.addEventListener('click',closeModal));
   function showVideo(person){
     const path=safePath(person.video);
+    const driveId=safeDriveVideoId(person.driveVideoId);
     if(path){
       openModal({title:`From ${person.name}`,eyebrow:'A VIDEO JUST FOR MARJIE',body:`<video src="${escapeHTML(path)}" controls playsinline preload="metadata"></video>`,caption:person.videoInfo || 'A birthday greeting ♡'});
+    } else if(driveId){
+      const viewUrl=`https://drive.google.com/file/d/${driveId}/view`;
+      const previewUrl=`https://drive.google.com/file/d/${driveId}/preview`;
+      const body=`<iframe src="${previewUrl}" title="Birthday greeting from ${escapeHTML(person.name)}" loading="eager" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="display:block;width:100%;aspect-ratio:16/9;min-height:260px;border:0;border-radius:10px;background:#151515"></iframe><p style="margin-top:12px;text-align:center;font-size:.85rem">Video not playing? <a href="${viewUrl}" target="_blank" rel="noopener noreferrer">Open greeting in Google Drive ↗</a></p>`;
+      openModal({title:`From ${person.name}`,eyebrow:'A VIDEO JUST FOR MARJIE',body,caption:person.videoInfo || 'A birthday greeting ♡'});
     } else {
       openModal({title:`From ${person.name}`,eyebrow:'BIRTHDAY GREETING / DEMO',body:`<div class="video-preview"><div><div class="demo-circle">♡</div><strong>Waiting for ${escapeHTML(person.name)}</strong><span>The video will be added after it is submitted.</span></div></div>`,caption:'This greeting has not been uploaded to Drive yet.'});
     }
