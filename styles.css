@@ -393,3 +393,31 @@ body.ap-editor-open{overflow:hidden!important}
 
 /* Real Marjie photo in the front, tilted birthday Polaroid. */
 .frame-image.image-a .marjie-hero-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:63% 48%;}
+
+/* One personal photo just between Aaron's final video and letter. */
+.letter-section .aaron-marjie-polaroid{
+  display:block;
+  width:min(100% - 28px,580px);
+  margin:7px auto 12px;
+  padding:14px 14px 19px;
+  background:#fffdf8;
+  box-shadow:0 17px 42px rgba(78,48,49,.18);
+  transform:rotate(-2deg);
+  text-align:center;
+}
+.letter-section .aaron-marjie-polaroid[hidden]{display:none}
+.letter-section .aaron-marjie-polaroid img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  display:block;
+}
+.letter-section .aaron-marjie-polaroid figcaption{
+  margin-top:13px;
+  font:italic 1.04rem Georgia,serif;
+  color:#836467;
+}
+@media(max-width:530px){
+  .letter-section .aaron-marjie-polaroid{width:calc(100% - 20px);padding:10px 10px 14px}
+  .letter-section .aaron-marjie-polaroid figcaption{font-size:.91rem}
+}
