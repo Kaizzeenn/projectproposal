@@ -89,10 +89,7 @@
     const el=$(inner?'#innerCard':'#wishesCard'); if(!el) return;
     const ready=!!(safePath(person.video) || safeDriveVideoId(person.driveVideoId));
     const typeLabel=inner?'INNER CIRCLE / VIDEO GREETING':'BIRTHDAY WISHES / VIDEO GREETING';
-    const status=ready
-      ? `<div class="video-status video-status-ready"><span class="status-symbol">✓</span><div><strong>Video ready</strong><span>${escapeHTML(person.videoInfo || 'A greeting just for you.')}</span></div></div>`
-      : `<div class="video-status"><span class="status-symbol">♡</span><div><strong>Waiting for a little hello</strong><span>${escapeHTML(person.name)}'s video will appear here once submitted.</span></div></div>`;
-    el.innerHTML = `${portrait(person,index,kind)}<div class="person-details person-details-video"><div class="person-meta-row"><span class="meta">${typeLabel}</span><span class="index-pill">${String(index+1).padStart(2,'0')}</span></div><h3>${escapeHTML(person.name)}</h3><p class="video-intro">${ready?'There’s a little birthday greeting waiting for you.':'This video greeting is still on its way.'}</p>${status}<div class="card-actions"><button class="mini-button ${ready ? 'video-ready' : 'video-soon'}" type="button" data-action="video" data-kind="${kind}" data-index="${index}">${ready ? '▶ Watch the birthday video' : '▶ Video not submitted yet'}</button></div></div>`;
+    el.innerHTML = `${portrait(person,index,kind)}<div class="person-details person-details-video"><div class="person-meta-row"><span class="meta">${typeLabel}</span><span class="index-pill">${String(index+1).padStart(2,'0')}</span></div><h3>${escapeHTML(person.name)}</h3><p class="video-intro">${ready?'There’s a little birthday greeting waiting for you.':'This video greeting is still on its way.'}</p><div class="card-actions"><button class="mini-button ${ready ? 'video-ready' : 'video-soon'}" type="button" data-action="video" data-kind="${kind}" data-index="${index}">${ready ? '▶ Watch the birthday video' : '▶ Video not submitted yet'}</button></div></div>`;
     el.querySelectorAll('[data-go]').forEach(btn=>btn.addEventListener('click',()=>goTo(btn.dataset.go)));
     const dots=$(inner?'#innerDots':'#wishesDots');
     dots.innerHTML=data.map((x,i)=>`<button type="button" class="${i===index?'active':''}" data-i="${i}" aria-label="Show ${escapeHTML(x.name)}"></button>`).join('');
