@@ -21,6 +21,8 @@ jobs:
           test -s /tmp/shawn_victor_source.mov
       - name: Convert to compatible compressed MP4
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
           ffmpeg -nostdin -y -hide_banner -loglevel error -i /tmp/shawn_victor_source.mov \
             -vf "scale=854:-2,fps=24" -c:v libx264 -preset veryfast -crf 28 \
             -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart \
