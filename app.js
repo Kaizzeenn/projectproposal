@@ -247,6 +247,15 @@
       $('#openDigitalGift').innerHTML='Opened just for you <span>♡</span>';
       toast('Your digital gift is ready. ♡');
     });
+    // Show the original couple photo inside the hidden personal finale.
+    const coupleFrame=$('#aaronMarjiePhotoFrame');
+    const coupleImg=$('#aaronMarjiePhoto');
+    const couplePath=safePath(BDAY.personal.couplePhoto);
+    if(coupleFrame && coupleImg && couplePath){
+      coupleImg.addEventListener('error',()=>{coupleFrame.hidden=true;},{once:true});
+      coupleImg.src=couplePath;
+      coupleFrame.hidden=false;
+    }
     $('#aaronLetter').textContent=BDAY.personal.letter;
     $('#openLetter')?.addEventListener('click',()=>{
       const envelope=$('#letterSurprise'), button=$('#openLetter'), letterPage=$('#letterReveal');
