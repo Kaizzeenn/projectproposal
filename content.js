@@ -9,7 +9,7 @@ const BDAY = {
   "passcode": "1119",
   "appreciationNotes": [
     {
-      "name": "Freyja + Paolo",
+      "name": "Freyja",
       "quote": ""
     },
     {
@@ -18,27 +18,35 @@ const BDAY = {
     },
     {
       "name": "Chesca",
-      "quote": ""
+      "quote": "I love how warm and genuine she is as a person. How she treats everyone like a close friend, even the people she's only just met. How she goes all out to make her friends feel special and have a good time, even when it means taking on more work. And thats only some of the reasons which defines her as a person and the person we love. Her energy brightens peoples days, her creativeness brings a spark and impact to the group that just gives off Marji. The group defo wouldnt feel complete without her ♡♡♡"
     },
     {
       "name": "Glesnan",
       "quote": ""
     },
     {
-      "name": "Chloe + Precious",
+      "name": "Chloe",
+      "quote": "One of the things I love about my mowm (marjiee) is how outgoing and bubbly she is hehehe ◡̈. She’s one of the most genuine and kind hearted person i know and i love how she has a way of making everyone around her feel included and comfortable, even to those she just met. She’s also one of my comfort person and someone i can always lean on whenever i need to ♡"
+    },
+    {
+      "name": "Precious",
       "quote": ""
     },
     {
       "name": "Yeisha",
-      "quote": ""
+      "quote": "i love how caring, selfless amazing a friend she is and definition of how true and genuine she is as a person. deserves all the love everyday esp on her special day"
     },
     {
       "name": "Liam",
       "quote": ""
     },
     {
-      "name": "Shawn + Victor",
+      "name": "Shawn",
       "quote": ""
+    },
+    {
+      "name": "Victor",
+      "quote": "i love how approachable marjie is because she’s easy to talk to and makes everyone feel comfortable around her."
     },
     {
       "name": "Maggie",
