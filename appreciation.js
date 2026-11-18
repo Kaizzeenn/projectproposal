@@ -29,9 +29,11 @@
   // Keep newly embedded submissions, while retaining any non-empty notes saved in this browser.
   const sourceNotes=normalize(hasQuotes(seed) ? seed : fallbackNotes);
   const savedNotes=normalize(saved);
+  // Published messages must win over old drafts saved on someone's device.
+  // Local drafts only fill entries that have not been published yet.
   let data=sourceNotes.map(item=>{
     const local=savedNotes.find(x=>x.name===item.name);
-    return {name:item.name,quote:local && local.quote.trim() ? local.quote : item.quote};
+    return {name:item.name,quote:item.quote.trim() ? item.quote : (local?.quote?.trim() ? local.quote : '')};
   });
   let editorOpen=false;
   const wall=$('#appreciationWall');
