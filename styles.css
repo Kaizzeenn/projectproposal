@@ -421,3 +421,21 @@ body.ap-editor-open{overflow:hidden!important}
   .letter-section .aaron-marjie-polaroid{width:calc(100% - 20px);padding:10px 10px 14px}
   .letter-section .aaron-marjie-polaroid figcaption{font-size:.91rem}
 }
+
+
+/* Final mobile polish: keep Marjie's birthday Polaroid visible on phones. */
+@media(max-width:790px){
+  .lock-story .lock-polaroid{
+    display:block;
+    width:156px;
+    margin:13px auto 2px;
+    padding:8px 8px 10px;
+    transform:rotate(-5deg);
+  }
+  .lock-story .lock-polaroid-art{height:111px}
+  .lock-story .polaroid-caption{font-size:.72rem;margin-top:6px}
+}
+@media(max-width:530px){
+  .lock-story .lock-polaroid{width:137px;margin:10px auto 0}
+  .lock-story .lock-polaroid-art{height:98px}
+}
