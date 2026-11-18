@@ -87,9 +87,9 @@ const BDAY = {
     },
     {
       "name": "Chloe + Precious",
-      "photo": "",
-      "video": "",
-      "videoInfo": ""
+      "photo": "chloe_precious.jpg",
+      "video": "chloe_precious_greeting.mp4",
+      "videoInfo": "A birthday greeting from Chloe and Precious"
     },
     {
       "name": "Yeisha",
