@@ -136,7 +136,8 @@ const BDAY = {
       "label": "Funny photos"
     },
     {
-      "photo": "",
+      "photo": "marjie_small_moments_poster.jpg",
+      "video": "marjie_small_moments.mp4",
       "caption": "Small moments",
       "label": "Small moments"
     },
