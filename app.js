@@ -265,7 +265,7 @@
     $('#playAaronVideo')?.addEventListener('click',()=>{
       const path=safePath(BDAY.personal.video);
       // Always load the newly normalized audio instead of a previously cached MP4.
-      const videoSrc = path === 'aaron_finale.mp4' ? `${path}?v=audio-normalized-20261119` : path;
+      const videoSrc = path === 'aaron_finale.mp4' ? `${path}?v=audio-softer-20261119` : path;
       openModal({title:'From your bebiilovess',eyebrow:'THE LAST BIRTHDAY GREETING',body:path?`<video src="${escapeHTML(videoSrc)}" controls playsinline preload="metadata"></video>`:`<div class="video-preview"><div><div class="demo-circle">▶</div><strong>For my bebii ♡</strong><span>Your personal birthday video will go here.</span></div></div>`,caption:path?'Your special message ♡':'Preview only — replace this slot with your video later.'});
     });
     $('#replayAll')?.addEventListener('click',()=>window.location.reload());
