@@ -39,11 +39,10 @@ jobs:
           "$FFMPEG" -nostdin -hide_banner -i aaron_finale_boosted.mp4 -vn \
             -af "loudnorm=I=-16:TP=-1.5:LRA=11:print_format=summary" \
             -f null - 2>&1 | tee /tmp/after-audio.txt
-          "$FFMPEG" -nostdin -hide_banner -i aaron_finale.mp4 -map 0:v:0 -c copy -f hash - 2>&1 | tail -2 > /tmp/video-before-hash.txt
-          "$FFMPEG" -nostdin -hide_banner -i aaron_finale_boosted.mp4 -map 0:v:0 -c copy -f hash - 2>&1 | tail -2 > /tmp/video-after-hash.txt
-          grep '^SHA256=' /tmp/video-before-hash.txt > /tmp/raw-hash-before.txt
-          grep '^SHA256=' /tmp/video-after-hash.txt > /tmp/raw-hash-after.txt
-          diff -u /tmp/raw-hash-before.txt /tmp/raw-hash-after.txt
+          "$FFMPEG" -nostdin -y -hide_banner -loglevel error -i aaron_finale.mp4 -map 0:v:0 -c:v copy -f h264 /tmp/aaron-video-original.h264
+          "$FFMPEG" -nostdin -y -hide_banner -loglevel error -i aaron_finale_boosted.mp4 -map 0:v:0 -c:v copy -f h264 /tmp/aaron-video-boosted.h264
+          cmp /tmp/aaron-video-original.h264 /tmp/aaron-video-boosted.h264
+          sha256sum /tmp/aaron-video-original.h264 /tmp/aaron-video-boosted.h264
           ls -lh aaron_finale.mp4 aaron_finale_boosted.mp4
       - name: Replace hosted video
         run: |
