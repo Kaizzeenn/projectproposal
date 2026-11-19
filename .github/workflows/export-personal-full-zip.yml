@@ -1,0 +1,95 @@
+name: Export Marjie complete personal birthday website
+on:
+  push:
+    paths:
+      - .github/workflows/export-personal-full-zip.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the original site and personal finale
+        run: |
+          node --check app.js
+          node --check content.js
+          node --check appreciation.js
+          node <<'NODE'
+          const fs=require('fs'),vm=require('vm'),sandbox={};
+          vm.createContext(sandbox);
+          vm.runInContext(fs.readFileSync('content.js','utf8')+';globalThis.site=BDAY;',sandbox);
+          const site=sandbox.site, html=fs.readFileSync('index.html','utf8');
+          if(!html.includes('id="personalReveal"')||!html.includes('hero-collage-single'))throw Error('Original website/finale not found');
+          if(!site.personal||site.personal.video!=='aaron_finale.mp4'||!site.personal.letter||!site.personal.couplePhoto)throw Error('Personal finale assets/text missing');
+          const required=[];
+          for(const item of [...site.innerCircle,...site.birthdayMessages,...site.memories]){
+            for(const key of ['photo','video'])if(item[key])required.push(item[key]);
+          }
+          for(const key of ['video','couplePhoto'])if(site.personal[key])required.push(site.personal[key]);
+          const missing=[...new Set(required)].filter(name=>!fs.existsSync(name));
+          if(missing.length)throw Error('Missing media: '+missing.join(', '));
+          console.log('Verified',required.length,'media references and full personal finale');
+          NODE
+      - name: Build complete original website folder
+        run: |
+          mkdir -p Marjie_Birthday_Full_Website
+          cp -- index.html styles.css app.js content.js appreciation.js Marjie_Birthday_Full_Website/
+          find . -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' -o -iname '*.mp4' \) -exec cp -t Marjie_Birthday_Full_Website/ {} +
+          test -s Marjie_Birthday_Full_Website/aaron_finale.mp4
+          test -s Marjie_Birthday_Full_Website/aaron_marjie_finale.jpg
+          test -s Marjie_Birthday_Full_Website/digital_gift_art.jpg
+          test -s Marjie_Birthday_Full_Website/marjie_hero_polaroid.jpg
+          cat > Marjie_Birthday_Full_Website/READ_ME_FIRST.txt <<'TXT'
+          MARJIE'S BIRTHDAY SURPRISE — COMPLETE PERSONAL EDITION
+
+          This is the ORIGINAL full website, including Aaron's personal finale,
+          his video, letter, couple photo, digital gift, flowers, verses,
+          all friend greetings and all gallery media.
+
+          HOW TO OPEN IT OFFLINE:
+          1. Extract the entire ZIP file to a folder on your computer.
+          2. Double-click index.html to open it in Chrome or Edge.
+          3. Enter 1119 to unlock the surprise.
+          4. Keep all files together; never move index.html alone.
+
+          For the most reliable local playback, run a local web server
+          within this folder, such as: python -m http.server 8000
+          Then open http://localhost:8000 in your browser.
+
+          The complete copy includes all media locally and needs no Google Drive.
+          This ZIP is the private PERSONAL edition. Don't distribute this
+          package to friends if the personal surprise is meant for Marjie only.
+
+          Online edition:
+          https://kaizzeenn.github.io/projectproposal/
+          TXT
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('Marjie_Birthday_Full_Website')
+          files=list(p.iterdir())
+          print('Included',len(files),'files, including',len(list(p.glob('*.mp4'))),'MP4 videos')
+          assert len(files) >= 40
+          assert len(list(p.glob('*.mp4'))) >= 12
+          PY
+      - name: Create ZIP and validate its contents
+        run: |
+          zip -q -r -9 Marjie_Birthday_Full_Personal_Complete.zip Marjie_Birthday_Full_Website/
+          unzip -tq Marjie_Birthday_Full_Personal_Complete.zip
+          unzip -Z1 Marjie_Birthday_Full_Personal_Complete.zip | grep -q 'Marjie_Birthday_Full_Website/aaron_finale.mp4'
+          unzip -Z1 Marjie_Birthday_Full_Personal_Complete.zip | grep -q 'Marjie_Birthday_Full_Website/index.html'
+          sha256sum Marjie_Birthday_Full_Personal_Complete.zip > Marjie_Birthday_Full_SHA256.txt
+          ls -lh Marjie_Birthday_Full_Personal_Complete.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Marjie_Birthday_Full_Personal_Complete
+          path: |
+            Marjie_Birthday_Full_Personal_Complete.zip
+            Marjie_Birthday_Full_SHA256.txt
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
