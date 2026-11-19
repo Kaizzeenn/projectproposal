@@ -1,0 +1,46 @@
+name: Publish friends-only birthday website
+
+on:
+  push:
+    paths:
+      - .github/workflows/build-friends-birthday.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate the friends-only website
+        run: |
+          python3 -m pip install --quiet beautifulsoup4
+          python3 .github/scripts/build_friends.py
+          node --check friends/content.js
+          node --check friends/app.js
+          node --check friends/appreciation.js
+          test -s friends/index.html
+          test -s friends/paolo_freyja_shared.mp4
+          test -s friends/chloe_precious_greeting.mp4
+          test ! -e friends/aaron_finale.mp4
+      - name: Publish friends version in /friends
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add friends/
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish friends-only birthday site without personal finale"
+            git push
+          fi
+      - name: Create optional offline copy
+        run: |
+          zip -q -r -9 Marjie_Birthday_Friends_Offline.zip friends/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Marjie_Birthday_Friends_Offline
+          path: Marjie_Birthday_Friends_Offline.zip
+          retention-days: 14
+          compression-level: 0
