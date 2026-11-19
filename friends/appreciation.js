@@ -1,0 +1,34 @@
+(() => {
+  'use strict';
+  const wall = document.getElementById('appreciationWall');
+  if (!wall || typeof BDAY === 'undefined') return;
+  const filled = (BDAY.appreciationNotes || []).filter(x => x && typeof x.quote === 'string' && x.quote.trim());
+  const doodles = ['✿','♡','✦','☁','❀','⟡'];
+  const pins = ['✿','♡','✦','⋆','☁','❀'];
+  filled.forEach((entry, i) => {
+    const article = document.createElement('article');
+    article.className = 'ap-note';
+    article.style.animationDelay = (i * 85) + 'ms';
+    const doodle = document.createElement('span');
+    doodle.className = 'ap-note-doodle';
+    doodle.setAttribute('aria-hidden', 'true');
+    doodle.textContent = doodles[i % doodles.length];
+    const quote = document.createElement('blockquote');
+    quote.className = 'ap-note-quote';
+    quote.textContent = '“' + entry.quote.trim() + '”';
+    const signature = document.createElement('div');
+    signature.className = 'ap-note-signature';
+    const heart = document.createElement('span');
+    heart.className = 'ap-note-heart';
+    heart.textContent = '♡';
+    const name = document.createElement('span');
+    name.textContent = '— ' + entry.name;
+    signature.append(heart, name);
+    const pin = document.createElement('span');
+    pin.className = 'ap-note-pin';
+    pin.setAttribute('aria-hidden', 'true');
+    pin.textContent = pins[(i+2) % pins.length];
+    article.append(doodle, quote, signature, pin);
+    wall.append(article);
+  });
+})();
